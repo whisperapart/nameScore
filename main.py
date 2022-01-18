@@ -2,9 +2,22 @@
 import random
 
 from bs4 import BeautifulSoup
-import requests, json, time, re, os, sys, time
+import time
 import urllib.request
 from retrying import retry
+
+
+ymd = '2020-01-01'  # 出生日期
+h = '12'            # 小时
+i = '00'            # 分钟
+xb = '1'            # 性别
+surname = urllib.parse.quote('戴')   # 姓
+first_char = '安'    # 模式 first_char + second_char(start with start_char) eg. 戴安一
+start_char = '一'    # 断点继续
+base_url = 'https://www.mzi8.com/ceshi/c.php?sign=cha&xing=' \
+           + surname \
+           + '&xb='+xb+'&ymd='+ymd+'&h='+h+'&i='+i+'&ming='
+
 
 ua_list = ["Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 Safari/537.1",
            "Mozilla/5.0 (X11; CrOS i686 2268.111.0) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11",
@@ -343,11 +356,6 @@ chars = ['一', '丁', '七', '万', '丈', '三', '上', '下', '不', '与', '
          '黧', '黩', '黯', '黹', '黻', '黼', '黾', '鼋', '鼍', '鼎', '鼐', '鼒', '鼓', '鼗', '鼙', '鼠', '鼢', '鼩', '鼫', '鼬', '鼯', '鼱',
          '鼷', '鼹', '鼻', '鼾', '齁', '齉', '齐', '齑', '齿', '龀', '龁', '龃', '龄', '龅', '龆', '龇', '龈', '龉', '龊', '龋', '龌', '龙',
          '龚', '龛', '龟', '龠']
-# chars = ['一', '丁', '七', '万', '丈', '三', '上', '下'] # 短数组，用于测试
-base_url = 'https://www.mzi8.com/ceshi/c.php?sign=cha&xing=' + urllib.parse.quote(
-    '戴') + '&xb=1&ymd=2021-12-04&h=10&i=14&ming='
-first_char = '宽'    # ['安', '宁', '宗', '学', '实', '宣', '字', '宇', '宏', '客', '守']
-start_char = '一'    # 断点继续
 
 
 def get_name_url(web_url):
